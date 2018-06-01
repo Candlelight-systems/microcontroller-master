@@ -1,0 +1,6 @@
+connections/org.eclipse.cdt.arduino.core.connectionType/MPPT-Master/arduinoBoardName=arduino_zero_native
+connections/org.eclipse.cdt.arduino.core.connectionType/MPPT-Master/arduinoPackageName=arduino
+connections/org.eclipse.cdt.arduino.core.connectionType/MPPT-Master/arduinoPlatformName=samd
+connections/org.eclipse.cdt.arduino.core.connectionType/MPPT-Master/arduinoPortName=/dev/cu.usbmodem1421
+connections/org.eclipse.cdt.arduino.core.connectionType/MPPT-Master/programmer=sam_ice
+eclipse.preferences.version=1

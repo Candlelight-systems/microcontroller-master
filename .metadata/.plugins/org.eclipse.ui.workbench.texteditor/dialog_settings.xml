@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="dcdc" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="dcdc"/>
+			<item value="uv"/>
+			<item value="get_temperature_base"/>
+			<item value="measure_pd_code"/>
+			<item value="measure_pd"/>
+			<item value="measure_pd_sun"/>
+			<item value="pd_scaling_ma_to_sun"/>
+			<item value="lightSetScaling"/>
+			<item value="scaling"/>
+			<item value="iv_data"/>
+			<item value="sunphoto"/>
+			<item value="SerialUSB"/>
+			<item value="COMMAND_AUTOZERO"/>
+			<item value="autoZero"/>
+			<item value="auto"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="290" key="DIALOG_WIDTH"/>
+		<item value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont" key="DIALOG_FONT_NAME"/>
+		<item value="409" key="DIALOG_HEIGHT"/>
+		<item value="980" key="DIALOG_X_ORIGIN"/>
+		<item value="406" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

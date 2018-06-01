@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ArduinoTerminalSettingsPage">
+		<item value="8" key="cdtserial.byteSize"/>
+		<item value="MPPT-Master" key="arduino.board"/>
+		<item value="57600" key="cdtserial.baudRate"/>
+		<item value="/dev/cu.usbmodem1421" key="cdtserial.portName"/>
+		<item value="None" key="cdtserial.parity"/>
+		<item value="1" key="cdtserial.stopBits"/>
+	</section>
+</section>
