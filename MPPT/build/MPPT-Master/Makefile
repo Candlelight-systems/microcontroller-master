@@ -14,6 +14,7 @@ PROJECT_OBJS = \
 	project/commands.cpp.o \
 	project/dcdc.cpp.o \
 	project/light.cpp.o \
+	project/light_expander.cpp.o \
 	project/pid.cpp.o \
 	project/relays.cpp.o \
 	project/../../../Documents/Arduino/libraries/scpiparser/scpiparser.cpp.o \
@@ -114,6 +115,14 @@ project/light.cpp.o: ../../light.cpp project/light.cpp.d
 project/light.cpp.d: ;
 
 -include project/light.cpp.d 
+
+project/light_expander.cpp.o: ../../light_expander.cpp project/light_expander.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/Users/normanpellet/.arduinocdt/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-g++" -mcpu=cortex-m0plus -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD -DF_CPU=48000000L -DARDUINO=10608 -DARDUINO_SAMD_ZERO -DARDUINO_ARCH_SAMD  -D__SAMD21G18A__ -DUSB_VID=0x2341 -DUSB_PID=0x804d -DUSBCON '-DUSB_MANUFACTURER="Arduino LLC"' '-DUSB_PRODUCT="Arduino Zero"' "-I/Users/normanpellet/.arduinocdt/packages/arduino/tools/CMSIS/4.5.0/CMSIS/Include/" "-I/Users/normanpellet/.arduinocdt/packages/arduino/tools/CMSIS-Atmel/1.1.0/CMSIS/Device/ATMEL/" -I"/Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/cores/arduino" -I"/Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/variants/arduino_zero" -I"/Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/libraries/SPI" -I"/Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/libraries/Wire" "$<" -o "$@"
+
+project/light_expander.cpp.d: ;
+
+-include project/light_expander.cpp.d 
 
 project/pid.cpp.o: ../../pid.cpp project/pid.cpp.d
 	@$(call mymkdir,$(dir $@))

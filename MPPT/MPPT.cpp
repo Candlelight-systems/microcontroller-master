@@ -9,7 +9,9 @@
 #include "commands.h"
 #include "scpiparser.h"
 #include "light.h"
+#include "light_expander.h"
 #include "ssr.h"
+#include "_parameters.c"
 
 bool swdec1State = false;
 bool swdec2State = false;
@@ -33,12 +35,16 @@ void loop() {
 
   while (1)
   {
+
+
     /* Read in a line and execute it. */
     // Before treating any channel, check for serial communication
     if ( SerialUSB.available() ) {
       read_length = SerialUSB.readBytesUntil('\n', line_buffer, 256);
       if (read_length > 0) {
+
         scpi_execute_command(&ctx, line_buffer, read_length);
+
         read_length = 0;
         SerialUSB.println( statusByte ); // Always send a statusbyte at the end of the command
         //slaveCommand( COMMAND_UNLOCK );
@@ -123,12 +129,18 @@ byte readByteFromWire( ) {
 
 void pause_wait() {
 	byte paused = false;
+
 	slaveCommand( COMMAND_PAUSE, -1, (byte) 1 );
 	do {
 	  delay( 10 );
 	  slaveCommand( COMMAND_REQ_PAUSE );
 	  paused = readByteFromWire( );
 	} while( paused == 0 );
+
+}
+
+void pause_resume() {
+	slaveCommand( COMMAND_PAUSE, -1, (byte) 0 );
 }
 int32_t readIntFromWire( ) {
 
@@ -222,11 +234,11 @@ void printDouble2( float val ) {
   SerialUSB.write( conversion.v[ 3 ] );
 }
 
-byte getChannel( struct scpi_token* args ) {
+byte getChannelFromSource( struct scpi_token* args ) {
 
-  int a = (int) ( args->next->next->value[2] - '0' );
-  if ( args->next->next->length == 4 ) {
-    a = a * 10 + (int) ( args->next->next->value[3] - '0' );
+  int a = (int) ( args->value[2] - '0' );
+  if ( args->length == 4 ) {
+    a = a * 10 + (int) ( args->value[3] - '0' );
   }
   if ( a < 0 || a > 16 ) {
     scpi_error error;
@@ -238,6 +250,11 @@ byte getChannel( struct scpi_token* args ) {
   }
 
   return a;
+}
+
+
+byte getChannel( struct scpi_token* args ) {
+	return getChannelFromSource( args->next->next );
 }
 
 void reset_slave() {
@@ -327,8 +344,8 @@ void setup() {
   pinMode( PIN_RESET_I2C, OUTPUT );
   pinMode( 40 , OUTPUT );
 
-  pinMode( PIN_LIGHT_1_ONOFF_READ, INPUT );
-  pinMode( PIN_LIGHT_2_ONOFF_READ, INPUT );
+  pinMode( PIN_LIGHT_1_ONOFF_READ, INPUT_PULLDOWN );
+  pinMode( PIN_LIGHT_2_ONOFF_READ, INPUT_PULLDOWN );
 
   pinMode( PIN_RESET_SLAVE, OUTPUT );
 
@@ -365,15 +382,19 @@ void setup() {
 
   SerialUSB.begin( 115200 );
 
+  SPI.begin();
   registerSCPICommands();
 
   resetChannels();
  // dcdc_setup();
 
+
   reset_slave();
-  delay( 1500 ); // Wait for 1 second
-  //
   digitalWrite( PIN_POWER, HIGH ); // Turn on analog power
+  delay( 1500 ); // Wait for 1 second
+  resetChannels();
+  //
+
   slaveCommand( COMMAND_SETUP ); // Setup the aquisition ATSAMD chip and all peripherals (DAC/ADC/PGA)
 
 
@@ -381,12 +402,10 @@ void setup() {
   // PA09: SSR Channel 1 (slow PWM)
   PORT->Group[ PORTA ].PINCFG[ 9 ].bit.PMUXEN = 1;
   PORT->Group[ PORTA ].PMUX[ 9 >> 1 ].reg = PORT_PMUX_PMUXO_E;
-/*
+
   // PA18: SSR Channel 2 (slow PWM)
   PORT->Group[ PORTA ].PINCFG[ 18 ].bit.PMUXEN = 1;
   PORT->Group[ PORTA ].PMUX[ 18 >> 1 ].reg = PORT_PMUX_PMUXE_F;
-
-*/
 
 
   // PA07: PWM Channel 2 (light control)
@@ -450,6 +469,9 @@ void setup() {
     REG_TCC0_CC1 = 0x0;         // TCC0 CC3 - on D7
     while (TCC0->SYNCBUSY.bit.CC1 );                // Wait for synchronization
 
+    REG_TCC0_CC2 = 0xFFFFFF;         // TCC0 CC3 - on D7
+    while (TCC0->SYNCBUSY.bit.CC2 );                // Wait for synchronization
+
 
     REG_TCC1_CC1 = 500;         // TCC0 CC3 - on D7
     while (TCC1->SYNCBUSY.bit.CC1 );                // Wait for synchronization
@@ -461,6 +483,9 @@ void setup() {
     PID_SSR1.target = 30.0; // 30°C
     PID_SSR2.target = 30.0; // 30°C
 
-}
 
+	#if LIGHT_EXPANDER
+		light_expander_init();
+	#endif
+}
 

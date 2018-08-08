@@ -11,6 +11,8 @@
 #define SLAVE_H_
 
 void muxI2C( byte id );
+void muxI2C( byte id, TwoWire &Wire );
+void demuxI2C( TwoWire &Wire );
 int16_t slave_readADS1015( byte address, byte channel );
 //float slave_readVEML6070( );
 void aquireHumiditySensor( byte address );

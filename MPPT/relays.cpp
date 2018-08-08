@@ -109,8 +109,8 @@ void resetChannels() {
 
 void updateChannels() {
 
-  SPI.begin();
-  SPI.beginTransaction( SPISettings( 10000, MSBFIRST, SPI_MODE0 ) );
+
+  SPI.beginTransaction( SPISettings( 1000000, MSBFIRST, SPI_MODE0 ) );
 
 
   digitalWrite( PIN_RELAY_CS, HIGH );
@@ -122,27 +122,25 @@ void updateChannels() {
   // Internal relay driver (for enabling / disabling channels)
   SPI.transfer( relays_9_16 );
   SPI.transfer( relays_1_8 );
-
   // General purpose relays
   SPI.transfer( relays_gen );
-
-  delayMicroseconds( 10 );
+  delayMicroseconds( 20 );
   digitalWrite( PIN_RELAY_RCK, HIGH );
-  delayMicroseconds( 10 );
+  delayMicroseconds( 20 );
   digitalWrite( PIN_RELAY_RCK, LOW );
   digitalWrite( PIN_RELAY_CS, LOW );
 
   SPI.endTransaction();
-  SPI.end();
+
 }
 
 
 void disableChannels() {
 
   //digitalWrite( PIN_RELAY_CS, HIGH );
+return;
 
-  SPI.begin();
-  SPI.beginTransaction( SPISettings(1000000, MSBFIRST, SPI_MODE1 ) );
+  SPI.beginTransaction( SPISettings(1000000, MSBFIRST, SPI_MODE0 ) );
 
   delay( 1 );
   SPI.transfer16( 0x00 );
@@ -156,7 +154,7 @@ void disableChannels() {
   digitalWrite( PIN_RELAY_CS, LOW );
 
   SPI.endTransaction();
-  SPI.end();
+
 
 }
 

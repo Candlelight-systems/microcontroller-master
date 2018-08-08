@@ -92,12 +92,12 @@
 #define COMMAND_TRACKER_SPEED 			0x16
 #define COMMAND_SET_DEVICE_PHOTODIODE 	0x17
 #define COMMAND_TRACKER_RESET 			0x18
-#define COMMAND_RESET 					0x18
 #define COMMAND_ENABLE_CHANNEL 			0x41
 #define COMMAND_DISABLE_CHANNEL 		0x42
 #define COMMAND_TRACKER_MODE			0x43
 #define COMMAND_AUTOZERO				0x44
 #define COMMAND_RESET					0x45
+#define COMMAND_TRACKER_VOLTAGE			0x46
 
 #define COMMAND_REQ_TRACKDATA 			0x20
 #define COMMAND_REQ_VOC 				0x21
@@ -119,6 +119,8 @@
 
 
 void pause_wait();
+void pause_resume();
+
 int16_t ADCReadPDCode();
 void ADC_WAKEUP();
 void ADC_SLEEP();
@@ -160,6 +162,7 @@ void configureDAC();
 void setDAC( int channel, uint16_t value );
 
 byte getChannel( struct scpi_token* args );
+byte getChannelFromSource( struct scpi_token* args );
 
 
 void muxVoltage( int chanId );

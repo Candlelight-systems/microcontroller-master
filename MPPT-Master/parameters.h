@@ -1,0 +1,13 @@
+
+#define DAC_RESOLUTION 14
+
+#define SRAM_STORAGE 1
+#define SRAM_STORAGE_CS_PIN 30
+#define SRAM_STORAGE_HOLD_PIN 31
+#define SRAM_NUMBER_BYTES_PER_CHANNEL (2048u)
+#define MAX_CURRENT 0.1
+#define MAX_VOLTAGE 10
+//#define ADC_VOLTAGE_GAIN 0b00000001 // 1/4 attenuation
+#define ADC_VOLTAGE_GAIN 0b00000001 // 1 attenuation
+
+#define MONITOR_PD 0

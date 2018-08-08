@@ -103,5 +103,6 @@ project/slave.cpp.o: ../../slave.cpp \
  /Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/cores/arduino/USB/samd21_host.h \
  ../../MPPT.h \
  /Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/libraries/Wire/Wire.h \
+ ../../slave.h \
  /Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/libraries/SPI/SPI.h \
  ../../scpiparser.h

@@ -1,19 +1,34 @@
 #include <Arduino.h>
 #include "MPPT.h"
+#include "slave.h"
 #include <Wire.h>
 #include <SPI.h>
 #include "scpiparser.h"
 
 void muxI2C( byte id ) {
-
-  WireSlave.beginTransmission( 0b1110000 );
-  if( id == 1 ) {
-    WireSlave.write( 0x00000001 );
-  } else {
-    WireSlave.write( 0x00000010 );
-  }
-  WireSlave.endTransmission();
+	muxI2C( id, WireSlave );
 }
+
+
+void muxI2C( byte id, TwoWire &TheWire ) {
+
+	TheWire.beginTransmission( 0b1110000 );
+  if( id == 1 ) {
+	  TheWire.write( 0b00000001 );
+  } else {
+	  TheWire.write( 0b00000010 );
+  }
+  TheWire.endTransmission();
+}
+
+
+void demuxI2C(  TwoWire &Wire ) {
+
+  Wire.beginTransmission( 0b1110000 );
+  Wire.write( 0b00000000 );
+  Wire.endTransmission();
+}
+
 
 int16_t slave_readADS1015( byte address, byte channel ) {
 

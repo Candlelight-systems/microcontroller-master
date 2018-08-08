@@ -104,4 +104,4 @@ project/commands.cpp.o: ../../commands.cpp ../../scpiparser.h \
  ../../MPPT.h \
  /Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/libraries/Wire/Wire.h \
  ../../commands.h ../../relays.h ../../slave.h ../../light.h ../../pid.h \
- ../../ssr.h
+ ../../ssr.h ../../light_expander.h ../../_parameters.c

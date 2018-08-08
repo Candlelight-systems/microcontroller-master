@@ -105,4 +105,4 @@ project/MPPT.cpp.o: ../../MPPT.cpp \
  /Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/libraries/SPI/SPI.h \
  /Users/normanpellet/.arduinocdt/packages/arduino/hardware/samd/1.6.18/cores/arduino/wiring_private.h \
  ../../MPPT.h ../../commands.h ../../scpiparser.h ../../light.h \
- ../../ssr.h ../../pid.h
+ ../../light_expander.h ../../ssr.h ../../pid.h ../../_parameters.c
